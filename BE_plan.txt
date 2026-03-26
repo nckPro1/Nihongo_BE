@@ -1,0 +1,53 @@
+Nihongo Flashcard App — Backend Architecture & Implementation Plan
+1. Tổng quan dự án (Updated)
+Ứng dụng học tiếng Nhật kết hợp Freemium model:
+
+Core features: Upload tài liệu (PDF/Text) → AI (Gemini) sinh flashcard; Học Flashcard; Làm Quiz; Blog cộng đồng.
+
+Từ điển AI: Tra từ điển Nhật-Việt/Việt-Nhật bằng Claude 3.5 Haiku siêu tốc độ → Lưu trực tiếp vào Flashcard.
+
+Monetization (Freemium): * User thường: Giới hạn số lượt tra từ AI và upload PDF mỗi ngày.
+
+User PRO: Không giới hạn. Thanh toán qua quét mã QR động (PayOS).
+
+
+Logic Nghiệp vụ Quan trọng (Luồng làm việc)
+A. Rate Limiting (Freemium Logic)
+Trigger: Khi user gọi API /translate hoặc /upload/generate-cards.
+
+Flow: 1. Lấy thông tin user từ SecurityContext.
+2. Check user.getIsPro() và proExpiresAt > now(). Nếu true -> Bỏ qua check, cho phép thực thi.
+3. Nếu false -> Tìm record trong user_daily_usage với usage_date = current_date. Nếu chưa có -> Tạo mới.
+4. So sánh số lượt đã dùng với Limit cấu hình (VD: max 10 lần dịch/ngày, 2 file/ngày).
+5. Nếu vượt -> Ném RateLimitExceededException (trả về HTTP 403).
+6. Nếu chưa vượt -> Cho phép thực thi, +1 vào biến đếm.
+
+B. AI Translation (Claude Haiku)
+Sử dụng WebClient gọi POST đến https://api.anthropic.com/v1/messages.
+
+Prompt yêu cầu format JSON cứng: { "kanji": "", "kana": "", "romaji": "", "meaning_vi": "", "example_jp": "", "example_vi": "", "part_of_speech": "" }.
+
+Trả JSON này thẳng về Frontend để hiển thị popup "Từ điển" & nút "Lưu vào Flashcard".
+
+C. Payment Webhook (PayOS)
+Tạo link thanh toán: Gọi API PayOS tạo link thanh toán, kèm orderCode sinh ngẫu nhiên. Lưu order dạng PENDING vào bảng payments. Trả link về Frontend cho user quét mã QR.
+
+Webhook Listener: PayOS bắn POST request về /api/payments/webhook.
+
+Xử lý Webhook: 1. Verify chuỗi Hash bằng checksum-key.
+2. Cập nhật status = 'PAID' trong bảng payments.
+3. Cập nhật users.is_pro = true và gia hạn users.pro_expires_at (cộng thêm số tháng dựa vào plan_type).
+
+-- AI TRANSLATION
+POST /api/translate  [AUTH]
+Body: { text: "từ cần tra", direction: "JP_TO_VN" | "VN_TO_JP" }
+Response: { success, data: { kanji, kana, meaning_vi... }, message }
+*(Sẽ bị Rate Limit nếu không phải PRO)*
+
+-- PAYMENTS (PAYOS)
+POST /api/payments/create-link  [AUTH]
+Body: { planType: "1_MONTH" | "6_MONTHS" | "1_YEAR" }
+Response: { checkoutUrl: "https://pay.payos.vn/..." }
+
+POST /api/payments/webhook  (PUBLIC - PayOS gọi)
+Body: { code, desc, data: { orderCode, amount... }, signature }
