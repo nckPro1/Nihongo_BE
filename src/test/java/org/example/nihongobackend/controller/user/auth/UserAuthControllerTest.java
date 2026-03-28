@@ -47,8 +47,8 @@ class UserAuthControllerTest {
     void register_ShouldReturnSuccessResponse() throws Exception {
         RegisterRequest request = new RegisterRequest();
         request.setEmail("test@email.com");
-        request.setPassword("secret123");
-        request.setConfirmPassword("secret123");
+        request.setPassword("Secret123");
+        request.setConfirmPassword("Secret123");
         request.setName("John");
 
         AuthUserResponse userResponse = new AuthUserResponse();
@@ -72,7 +72,7 @@ class UserAuthControllerTest {
     void login_ShouldReturnSuccessResponse() throws Exception {
         LoginRequest request = new LoginRequest();
         request.setEmail("test@email.com");
-        request.setPassword("secret123");
+        request.setPassword("Secret123");
 
         AuthUserResponse userResponse = new AuthUserResponse();
         userResponse.setId(UUID.randomUUID());
@@ -177,8 +177,8 @@ class UserAuthControllerTest {
     void resetPassword_ShouldReturnSuccessResponse() throws Exception {
         ResetPasswordRequest request = new ResetPasswordRequest();
         request.setToken("token-1");
-        request.setPassword("newpass123");
-        request.setConfirmPassword("newpass123");
+        request.setPassword("Newpass123");
+        request.setConfirmPassword("Newpass123");
         doNothing().when(authService).resetPassword(any(ResetPasswordRequest.class));
 
         mockMvc.perform(post("/api/auth/reset-password")

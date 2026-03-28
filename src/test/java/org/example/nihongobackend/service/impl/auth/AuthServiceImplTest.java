@@ -82,15 +82,15 @@ class AuthServiceImplTest {
     void register_ShouldCreateUser_WhenEmailNotExists() {
         RegisterRequest request = new RegisterRequest();
         request.setEmail("TeSt@Email.com");
-        request.setPassword("secret123");
-        request.setConfirmPassword("secret123");
+        request.setPassword("Secret123");
+        request.setConfirmPassword("Secret123");
         request.setName("  John  ");
 
         UUID userId = UUID.randomUUID();
         User savedUser = buildUser(userId, "test@email.com", "John", "USER", false, true, false, "hashed");
 
-        when(userRepository.existsByEmail("test@email.com")).thenReturn(false);
-        when(passwordEncoder.encode("secret123")).thenReturn("hashed");
+        when(userRepository.findByEmail("test@email.com")).thenReturn(Optional.empty());
+        when(passwordEncoder.encode("Secret123")).thenReturn("hashed");
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
         when(emailVerificationTokenRepository.findByUserAndUsedAtIsNull(savedUser)).thenReturn(List.of());
         when(emailVerificationTokenRepository.save(any(EmailVerificationToken.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -110,11 +110,12 @@ class AuthServiceImplTest {
     void register_ShouldThrowBadRequest_WhenEmailExists() {
         RegisterRequest request = new RegisterRequest();
         request.setEmail("taken@email.com");
-        request.setPassword("secret123");
-        request.setConfirmPassword("secret123");
+        request.setPassword("Secret123");
+        request.setConfirmPassword("Secret123");
         request.setName("John");
 
-        when(userRepository.existsByEmail("taken@email.com")).thenReturn(true);
+        User existing = buildUser(UUID.randomUUID(), "taken@email.com", "John", "USER", false, true, true, "hashed");
+        when(userRepository.findByEmail("taken@email.com")).thenReturn(Optional.of(existing));
 
         assertThrows(BadRequestException.class, () -> authService.register(request));
     }
@@ -123,13 +124,13 @@ class AuthServiceImplTest {
     void login_ShouldReturnTokenAndUser_WhenCredentialsValid() {
         LoginRequest request = new LoginRequest();
         request.setEmail("user@email.com");
-        request.setPassword("secret123");
+        request.setPassword("Secret123");
 
         UUID userId = UUID.randomUUID();
         User user = buildUser(userId, "user@email.com", "Jane", "USER", false, true, true, "hashed");
 
         when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
-        when(passwordEncoder.matches("secret123", "hashed")).thenReturn(true);
+        when(passwordEncoder.matches("Secret123", "hashed")).thenReturn(true);
         when(jwtService.generateToken(userId, "user@email.com", "USER")).thenReturn("jwt-token");
 
         LoginResponse response = authService.login(request);
@@ -213,6 +214,7 @@ class AuthServiceImplTest {
 
         when(googleTokenVerifierService.verify("google-id-token")).thenReturn(payload);
         when(userRepository.findByEmail("existing@email.com")).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(any(User.class))).thenReturn(existingUser);
         when(jwtService.generateToken(userId, "existing@email.com", "USER")).thenReturn("existing-jwt");
 
         LoginResponse response = authService.loginWithGoogle(request);
@@ -225,7 +227,7 @@ class AuthServiceImplTest {
     void login_ShouldThrowUnauthorized_WhenEmailNotVerified() {
         LoginRequest request = new LoginRequest();
         request.setEmail("user@email.com");
-        request.setPassword("secret123");
+        request.setPassword("Secret123");
 
         User user = buildUser(UUID.randomUUID(), "user@email.com", "Jane", "USER", false, true, false, "hashed");
         when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
@@ -321,8 +323,8 @@ class AuthServiceImplTest {
     void resetPassword_ShouldUpdatePassword_WhenTokenValid() {
         ResetPasswordRequest request = new ResetPasswordRequest();
         request.setToken("raw-reset-token");
-        request.setPassword("newpass123");
-        request.setConfirmPassword("newpass123");
+        request.setPassword("Newpass123");
+        request.setConfirmPassword("Newpass123");
 
         User user = buildUser(UUID.randomUUID(), "reset@email.com", "Reset", "USER", false, true, true, "oldHash");
         PasswordResetToken token = new PasswordResetToken();
@@ -330,7 +332,7 @@ class AuthServiceImplTest {
         token.setExpiresAt(LocalDateTime.now().plusMinutes(5));
 
         when(passwordResetTokenRepository.findByTokenHashAndUsedAtIsNull(anyString())).thenReturn(Optional.of(token));
-        when(passwordEncoder.encode("newpass123")).thenReturn("newHash");
+        when(passwordEncoder.encode("Newpass123")).thenReturn("newHash");
 
         authService.resetPassword(request);
 

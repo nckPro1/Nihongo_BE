@@ -31,6 +31,10 @@ public class User {
     @Column(name = "google_id", length = 255)
     private String googleId;
 
+    /** URL ảnh đại diện (Google profile hoặc đường dẫn upload sau này). */
+    @Column(length = 2048)
+    private String avatar;
+
     @Column(name = "jlpt_level", length = 10)
     private String jlptLevel = "N5";
 
@@ -105,6 +109,14 @@ public class User {
 
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getJlptLevel() {

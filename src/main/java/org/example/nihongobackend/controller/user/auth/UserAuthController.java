@@ -3,6 +3,7 @@ package org.example.nihongobackend.controller.user.auth;
 import jakarta.validation.Valid;
 import org.example.nihongobackend.dto.request.auth.LoginRequest;
 import org.example.nihongobackend.dto.request.auth.GoogleLoginRequest;
+import org.example.nihongobackend.dto.request.auth.GoogleCodeLoginRequest;
 import org.example.nihongobackend.dto.request.auth.ForgotPasswordRequest;
 import org.example.nihongobackend.dto.request.auth.ResendVerificationEmailRequest;
 import org.example.nihongobackend.dto.request.auth.ResetPasswordRequest;
@@ -42,6 +43,12 @@ public class UserAuthController {
     @PostMapping("/google")
     public ApiResponse<LoginResponse> loginWithGoogle(@Valid @RequestBody GoogleLoginRequest request) {
         LoginResponse data = authService.loginWithGoogle(request);
+        return ApiResponse.success("Google login successfully", data);
+    }
+
+    @PostMapping("/google/code")
+    public ApiResponse<LoginResponse> loginWithGoogleCode(@Valid @RequestBody GoogleCodeLoginRequest request) {
+        LoginResponse data = authService.loginWithGoogleCode(request);
         return ApiResponse.success("Google login successfully", data);
     }
 

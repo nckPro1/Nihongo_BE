@@ -20,10 +20,17 @@ public class AppUserDetailsService implements UserDetailsService {
         org.example.nihongobackend.entity.User appUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        String role = appUser.getRole() == null ? "USER" : appUser.getRole();
+        String role = appUser.getRole() == null ? "USER" : appUser.getRole().trim();
+        if (role.isEmpty()) {
+            role = "USER";
+        }
+        String springRole = role.replace("ROLE_", "").trim();
+        if (springRole.isEmpty()) {
+            springRole = "USER";
+        }
         return User.withUsername(appUser.getEmail())
                 .password(appUser.getPasswordHash() == null ? "" : appUser.getPasswordHash())
-                .roles(role.replace("ROLE_", ""))
+                .roles(springRole)
                 .disabled(Boolean.FALSE.equals(appUser.getIsActive()))
                 .build();
     }
