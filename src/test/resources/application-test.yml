@@ -2,5 +2,13 @@ spring:
   config:
     import: optional:file:.env[.properties]
 
+# Cố định secret cho test (MockMvc + JwtService / AdminJwtService cùng context)
+jwt:
+  secret: nihongo-integration-test-jwt-secret-must-be-at-least-256-bits-for-hmac-sha256
+admin:
+  jwt:
+    secret: nihongo-integration-test-admin-jwt-secret-at-least-256-bits-for-hmac-sha256
+    expiration: 3600000
+
 cloudinary:
   enabled: false

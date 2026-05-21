@@ -12,6 +12,7 @@ import org.example.nihongobackend.dto.response.auth.LoginResponse;
 import org.example.nihongobackend.entity.EmailVerificationToken;
 import org.example.nihongobackend.entity.PasswordResetToken;
 import org.example.nihongobackend.entity.User;
+import org.example.nihongobackend.entity.UserRole;
 import org.example.nihongobackend.exception.BadRequestException;
 import org.example.nihongobackend.mapper.UserResponseMapper;
 import org.example.nihongobackend.exception.UnauthorizedException;
@@ -23,6 +24,7 @@ import org.example.nihongobackend.security.PasswordPolicy;
 import org.example.nihongobackend.service.auth.AuthService;
 import org.example.nihongobackend.service.auth.EmailService;
 import org.example.nihongobackend.service.auth.GoogleTokenVerifierService;
+import org.example.nihongobackend.service.user.CustomerProfileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailService emailService;
+    private final CustomerProfileService customerProfileService;
 
     @Value("${app.frontend-base-url}")
     private String frontendBaseUrl;
@@ -57,7 +60,8 @@ public class AuthServiceImpl implements AuthService {
             GoogleTokenVerifierService googleTokenVerifierService,
             EmailVerificationTokenRepository emailVerificationTokenRepository,
             PasswordResetTokenRepository passwordResetTokenRepository,
-            EmailService emailService
+            EmailService emailService,
+            CustomerProfileService customerProfileService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -66,6 +70,7 @@ public class AuthServiceImpl implements AuthService {
         this.emailVerificationTokenRepository = emailVerificationTokenRepository;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.emailService = emailService;
+        this.customerProfileService = customerProfileService;
     }
 
     @Override
@@ -87,7 +92,8 @@ public class AuthServiceImpl implements AuthService {
                     existingUser.setName(request.getName().trim());
                 }
                 User savedUser = userRepository.save(existingUser);
-                return UserResponseMapper.toAuthUserResponse(savedUser);
+                var profile = customerProfileService.ensureLearnerProfile(savedUser);
+                return UserResponseMapper.toAuthUserResponse(savedUser, profile);
             }
             throw new BadRequestException("Email is already registered");
         }
@@ -96,14 +102,14 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(email);
         user.setName(request.getName().trim());
         user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-        user.setRole("USER");
+        user.setRole(UserRole.FREE);
         user.setIsActive(true);
-        user.setIsPro(false);
         user.setEmailVerified(false);
 
         User saved = userRepository.save(user);
+        var profile = customerProfileService.ensureLearnerProfile(saved);
         createAndSendVerificationToken(saved);
-        return UserResponseMapper.toAuthUserResponse(saved);
+        return UserResponseMapper.toAuthUserResponse(saved, profile);
     }
 
     @Override
@@ -129,7 +135,8 @@ public class AuthServiceImpl implements AuthService {
         String token = jwtService.generateToken(user.getId(), user.getEmail(), user.getRole());
         LoginResponse response = new LoginResponse();
         response.setToken(token);
-        response.setUser(UserResponseMapper.toAuthUserResponse(user));
+        var profile = customerProfileService.ensureLearnerProfile(user);
+        response.setUser(UserResponseMapper.toAuthUserResponse(user, profile));
         return response;
     }
 
@@ -161,12 +168,12 @@ public class AuthServiceImpl implements AuthService {
                     String fullName = (String) payload.get("name");
                     newUser.setName((fullName == null || fullName.isBlank()) ? "Google User" : fullName.trim());
                     newUser.setGoogleId(payload.getSubject());
-                    applyGoogleProfilePicture(newUser, payload);
-                    newUser.setRole("USER");
+                    newUser.setRole(UserRole.FREE);
                     newUser.setIsActive(true);
-                    newUser.setIsPro(false);
                     newUser.setEmailVerified(true);
-                    return userRepository.save(newUser);
+                    User nu = userRepository.save(newUser);
+                    customerProfileService.ensureLearnerProfile(nu);
+                    return nu;
                 });
 
         if (Boolean.FALSE.equals(user.getIsActive())) {
@@ -184,13 +191,13 @@ public class AuthServiceImpl implements AuthService {
         if ((user.getGoogleId() == null || user.getGoogleId().isBlank()) && payload.getSubject() != null) {
             user.setGoogleId(payload.getSubject());
         }
-        applyGoogleProfilePicture(user, payload);
         user = userRepository.save(user);
 
         String token = jwtService.generateToken(user.getId(), user.getEmail(), user.getRole());
         LoginResponse response = new LoginResponse();
         response.setToken(token);
-        response.setUser(UserResponseMapper.toAuthUserResponse(user));
+        var profile = customerProfileService.ensureLearnerProfile(user);
+        response.setUser(UserResponseMapper.toAuthUserResponse(user, profile));
         return response;
     }
 
@@ -286,14 +293,8 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new UnauthorizedException("User not found"));
-        return UserResponseMapper.toAuthUserResponse(user);
-    }
-
-    private void applyGoogleProfilePicture(User user, com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload payload) {
-        Object picture = payload.get("picture");
-        if (picture instanceof String s && !s.isBlank()) {
-            user.setAvatar(s.trim());
-        }
+        var profile = customerProfileService.ensureLearnerProfile(user);
+        return UserResponseMapper.toAuthUserResponse(user, profile);
     }
 
     private void createAndSendVerificationToken(User user) {

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class CreateLearningProjectRequest {
 
-    @NotBlank(message = "Tên dự án không được để trống")
+    @NotBlank(message = "Tên Zenigo không được để trống")
     @Size(max = 200)
     private String name;
 

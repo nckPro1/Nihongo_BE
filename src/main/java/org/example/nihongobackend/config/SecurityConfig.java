@@ -1,5 +1,6 @@
 package org.example.nihongobackend.config;
 
+import org.example.nihongobackend.security.AdminJwtAuthenticationFilter;
 import org.example.nihongobackend.security.AppUserDetailsService;
 import org.example.nihongobackend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,12 +31,17 @@ import java.util.stream.Collectors;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AdminJwtAuthenticationFilter adminJwtAuthenticationFilter;
     private final AppUserDetailsService userDetailsService;
     @Value("${cors.allowed-origins:http://localhost:5173}")
     private String allowedOrigins;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AppUserDetailsService userDetailsService) {
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            AdminJwtAuthenticationFilter adminJwtAuthenticationFilter,
+            AppUserDetailsService userDetailsService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.adminJwtAuthenticationFilter = adminJwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
     }
 
@@ -55,12 +62,21 @@ public class SecurityConfig {
                                 "/api/auth/verify-email",
                                 "/api/auth/resend-verification"
                         ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/admin/auth/login").permitAll()
                         .requestMatchers("/api/payments/webhook").permitAll()
                         .requestMatchers("/api/v1/dictionary/**").permitAll()
+                        .requestMatchers("/api/vocabulary/**").permitAll() // Vocabulary lookup - public access
+                        .requestMatchers(HttpMethod.GET, "/api/blog/posts/**").permitAll() // Public blog posts
+                        .requestMatchers(HttpMethod.GET, "/api/blog/posts/*/comments").permitAll() // Public comments
+                        .requestMatchers(HttpMethod.GET, "/api/blog/categories").permitAll() // Public categories
+                        .requestMatchers(HttpMethod.GET, "/api/blog/tags").permitAll() // Public tags
+                        .requestMatchers("/api/blog/admin/**").hasRole("ADMIN") // Admin blog management
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(adminJwtAuthenticationFilter, JwtAuthenticationFilter.class);
 
         return http.build();
     }

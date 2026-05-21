@@ -26,7 +26,7 @@ public class Flashcard {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    /** Dự án học tập (folder) chứa thẻ — có thể null tạm thời trước khi migration chạy. */
+    /** Zenigo (folder) chứa thẻ — có thể null tạm thời trước khi migration chạy. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private LearningProject project;

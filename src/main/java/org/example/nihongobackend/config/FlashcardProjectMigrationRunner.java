@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Gán flashcard cũ (chưa có project) vào một dự án "Kho mặc định" theo từng user.
+ * Gán flashcard cũ (chưa có project) vào một Zenigo "Kho mặc định" theo từng user.
  */
 @Component
 @Order(5)

@@ -17,7 +17,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendEmailVerificationLink(String toEmail, String name, String verificationLink) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);
-        message.setSubject("Nihongo App - Verify your email");
+        message.setSubject("Zenigo - Verify your email");
         message.setText(
                 "Hi " + name + ",\n\n"
                         + "Please verify your email by clicking the link below:\n"
@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendResetPasswordLink(String toEmail, String name, String resetLink) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);
-        message.setSubject("Nihongo App - Reset your password");
+        message.setSubject("Zenigo - Reset your password");
         message.setText(
                 "Hi " + name + ",\n\n"
                         + "Please reset your password by clicking the link below:\n"

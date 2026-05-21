@@ -1,13 +1,6 @@
 package org.example.nihongobackend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -35,17 +28,9 @@ public class User {
     @Column(length = 2048)
     private String avatar;
 
-    @Column(name = "jlpt_level", length = 10)
-    private String jlptLevel = "N5";
-
+    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private String role = "USER";
-
-    @Column(name = "is_pro")
-    private Boolean isPro = false;
-
-    @Column(name = "pro_expires_at")
-    private LocalDateTime proExpiresAt;
+    private UserRole role = UserRole.FREE;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
@@ -119,36 +104,16 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getJlptLevel() {
-        return jlptLevel;
-    }
-
-    public void setJlptLevel(String jlptLevel) {
-        this.jlptLevel = jlptLevel;
-    }
-
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
-    public Boolean getIsPro() {
-        return isPro;
-    }
-
-    public void setIsPro(Boolean pro) {
-        isPro = pro;
-    }
-
-    public LocalDateTime getProExpiresAt() {
-        return proExpiresAt;
-    }
-
-    public void setProExpiresAt(LocalDateTime proExpiresAt) {
-        this.proExpiresAt = proExpiresAt;
+    public String getUsername() {
+        return this.name;
     }
 
     public Boolean getIsActive() {

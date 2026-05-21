@@ -18,9 +18,12 @@ import org.example.nihongobackend.repository.EmailVerificationTokenRepository;
 import org.example.nihongobackend.repository.PasswordResetTokenRepository;
 import org.example.nihongobackend.repository.UserRepository;
 import org.example.nihongobackend.security.JwtService;
+import org.example.nihongobackend.entity.CustomerProfile;
 import org.example.nihongobackend.service.auth.EmailService;
 import org.example.nihongobackend.service.auth.GoogleTokenVerifierService;
+import org.example.nihongobackend.service.user.CustomerProfileService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,6 +47,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -70,12 +74,28 @@ class AuthServiceImplTest {
     @Mock
     private EmailService emailService;
 
+    @Mock
+    private CustomerProfileService customerProfileService;
+
     @InjectMocks
     private AuthServiceImpl authService;
+
+    @BeforeEach
+    void stubCustomerProfile() {
+        lenient().when(customerProfileService.ensureLearnerProfile(any(User.class)))
+                .thenAnswer(invocation -> defaultProfile());
+    }
 
     @AfterEach
     void tearDown() {
         SecurityContextHolder.clearContext();
+    }
+
+    private CustomerProfile defaultProfile() {
+        CustomerProfile cp = new CustomerProfile();
+        cp.setJlptLevel("N5");
+        cp.setIsPro(false);
+        return cp;
     }
 
     @Test
@@ -87,7 +107,7 @@ class AuthServiceImplTest {
         request.setName("  John  ");
 
         UUID userId = UUID.randomUUID();
-        User savedUser = buildUser(userId, "test@email.com", "John", "USER", false, true, false, "hashed");
+        User savedUser = buildUser(userId, "test@email.com", "John", "USER", true, false, "hashed");
 
         when(userRepository.findByEmail("test@email.com")).thenReturn(Optional.empty());
         when(passwordEncoder.encode("Secret123")).thenReturn("hashed");
@@ -114,7 +134,7 @@ class AuthServiceImplTest {
         request.setConfirmPassword("Secret123");
         request.setName("John");
 
-        User existing = buildUser(UUID.randomUUID(), "taken@email.com", "John", "USER", false, true, true, "hashed");
+        User existing = buildUser(UUID.randomUUID(), "taken@email.com", "John", "USER", true, true, "hashed");
         when(userRepository.findByEmail("taken@email.com")).thenReturn(Optional.of(existing));
 
         assertThrows(BadRequestException.class, () -> authService.register(request));
@@ -127,7 +147,7 @@ class AuthServiceImplTest {
         request.setPassword("Secret123");
 
         UUID userId = UUID.randomUUID();
-        User user = buildUser(userId, "user@email.com", "Jane", "USER", false, true, true, "hashed");
+        User user = buildUser(userId, "user@email.com", "Jane", "USER", true, true, "hashed");
 
         when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("Secret123", "hashed")).thenReturn(true);
@@ -146,7 +166,7 @@ class AuthServiceImplTest {
         request.setEmail("user@email.com");
         request.setPassword("wrong-password");
 
-        User user = buildUser(UUID.randomUUID(), "user@email.com", "Jane", "USER", false, true, true, "hashed");
+        User user = buildUser(UUID.randomUUID(), "user@email.com", "Jane", "USER", true, true, "hashed");
         when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("wrong-password", "hashed")).thenReturn(false);
 
@@ -160,7 +180,7 @@ class AuthServiceImplTest {
                 new UsernamePasswordAuthenticationToken(email, null)
         );
 
-        User user = buildUser(UUID.randomUUID(), email, "Me", "USER", true, true, true, "hashed");
+        User user = buildUser(UUID.randomUUID(), email, "Me", "USER", true, true, "hashed");
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
         AuthUserResponse response = authService.me();
@@ -185,7 +205,7 @@ class AuthServiceImplTest {
         payload.put("name", "Google User");
         payload.setSubject("google-sub-1");
 
-        User savedUser = buildUser(userId, "newgoogle@email.com", "Google User", "USER", false, true, true, null);
+        User savedUser = buildUser(userId, "newgoogle@email.com", "Google User", "USER", true, true, null);
         savedUser.setGoogleId("google-sub-1");
 
         when(googleTokenVerifierService.verify("google-id-token")).thenReturn(payload);
@@ -209,7 +229,7 @@ class AuthServiceImplTest {
         payload.setEmail("existing@email.com");
         payload.setSubject("google-sub-2");
 
-        User existingUser = buildUser(userId, "existing@email.com", "Existing", "USER", false, true, true, null);
+        User existingUser = buildUser(userId, "existing@email.com", "Existing", "USER", true, true, null);
         existingUser.setGoogleId("google-sub-2");
 
         when(googleTokenVerifierService.verify("google-id-token")).thenReturn(payload);
@@ -229,7 +249,7 @@ class AuthServiceImplTest {
         request.setEmail("user@email.com");
         request.setPassword("Secret123");
 
-        User user = buildUser(UUID.randomUUID(), "user@email.com", "Jane", "USER", false, true, false, "hashed");
+        User user = buildUser(UUID.randomUUID(), "user@email.com", "Jane", "USER", true, false, "hashed");
         when(userRepository.findByEmail("user@email.com")).thenReturn(Optional.of(user));
 
         assertThrows(UnauthorizedException.class, () -> authService.login(request));
@@ -237,7 +257,7 @@ class AuthServiceImplTest {
 
     @Test
     void verifyEmail_ShouldMarkUserVerified_WhenTokenValid() {
-        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", false, true, false, "hashed");
+        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", true, false, "hashed");
         EmailVerificationToken token = new EmailVerificationToken();
         token.setUser(user);
         token.setExpiresAt(java.time.LocalDateTime.now().plusMinutes(5));
@@ -257,7 +277,7 @@ class AuthServiceImplTest {
         ResendVerificationEmailRequest request = new ResendVerificationEmailRequest();
         request.setEmail("verify@email.com");
 
-        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", false, true, false, "hashed");
+        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", true, false, "hashed");
         when(userRepository.findByEmail("verify@email.com")).thenReturn(Optional.of(user));
         when(emailVerificationTokenRepository.findTopByUserOrderByCreatedAtDesc(user)).thenReturn(Optional.empty());
         when(emailVerificationTokenRepository.findByUserAndUsedAtIsNull(user)).thenReturn(List.of());
@@ -283,7 +303,7 @@ class AuthServiceImplTest {
         ResendVerificationEmailRequest request = new ResendVerificationEmailRequest();
         request.setEmail("verify@email.com");
 
-        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", false, true, false, "hashed");
+        User user = buildUser(UUID.randomUUID(), "verify@email.com", "Verify", "USER", true, false, "hashed");
         EmailVerificationToken latestToken = new EmailVerificationToken();
         latestToken.setCreatedAt(LocalDateTime.now());
 
@@ -298,7 +318,7 @@ class AuthServiceImplTest {
         ForgotPasswordRequest request = new ForgotPasswordRequest();
         request.setEmail("reset@email.com");
 
-        User user = buildUser(UUID.randomUUID(), "reset@email.com", "Reset", "USER", false, true, true, "hashed");
+        User user = buildUser(UUID.randomUUID(), "reset@email.com", "Reset", "USER", true, true, "hashed");
         when(userRepository.findByEmail("reset@email.com")).thenReturn(Optional.of(user));
         when(passwordResetTokenRepository.findTopByUserOrderByCreatedAtDesc(user)).thenReturn(Optional.empty());
         when(passwordResetTokenRepository.findByUserAndUsedAtIsNull(user)).thenReturn(List.of());
@@ -326,7 +346,7 @@ class AuthServiceImplTest {
         request.setPassword("Newpass123");
         request.setConfirmPassword("Newpass123");
 
-        User user = buildUser(UUID.randomUUID(), "reset@email.com", "Reset", "USER", false, true, true, "oldHash");
+        User user = buildUser(UUID.randomUUID(), "reset@email.com", "Reset", "USER", true, true, "oldHash");
         PasswordResetToken token = new PasswordResetToken();
         token.setUser(user);
         token.setExpiresAt(LocalDateTime.now().plusMinutes(5));
@@ -340,13 +360,12 @@ class AuthServiceImplTest {
         verify(passwordResetTokenRepository).save(any(PasswordResetToken.class));
     }
 
-    private User buildUser(UUID id, String email, String name, String role, boolean isPro, boolean isActive, boolean emailVerified, String passwordHash) {
+    private User buildUser(UUID id, String email, String name, String role, boolean isActive, boolean emailVerified, String passwordHash) {
         User user = new User();
         user.setId(id);
         user.setEmail(email);
         user.setName(name);
         user.setRole(role);
-        user.setIsPro(isPro);
         user.setIsActive(isActive);
         user.setEmailVerified(emailVerified);
         user.setPasswordHash(passwordHash);

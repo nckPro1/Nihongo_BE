@@ -1,0 +1,36 @@
+-- Tham chiếu cấu trúc (Hibernate ddl-auto=update sẽ tạo bảng tương ứng).
+-- Bạn có thể INSERT dữ liệu mẫu tại đây sau khi bảng đã tồn tại.
+
+-- grammar_groups: jlpt_level (N5..N1), name, description, sort_order
+-- grammar_points: group_id, title, formula, meaning, context, note, examples_json, sort_order
+--
+-- examples_json mẫu:
+-- [{"ja":"日本に行ったことがあります。","vi":"Tôi đã từng đi Nhật.","register":"polite"},{"ja":"見たことない。","vi":"Chưa từng thấy.","register":"casual"}]
+
+-- user_favourites: user_id, target_type ('GRAMMAR' | 'BLOG'), target_id (UUID của grammar_points hoặc blog)
+
+-- Ví dụ INSERT (đổi UUID / user_id thật sau khi có bảng users):
+--
+-- INSERT INTO grammar_groups (id, jlpt_level, name, description, sort_order, created_at)
+-- VALUES (
+--   gen_random_uuid(),
+--   'N4',
+--   'Nhóm kinh nghiệm / trải nghiệm',
+--   'たことがある、ことがある…',
+--   0,
+--   now()
+-- );
+--
+-- INSERT INTO grammar_points (id, group_id, title, formula, meaning, context, note, examples_json, sort_order, created_at)
+-- VALUES (
+--   gen_random_uuid(),
+--   '<group_id>',
+--   '～たことがある',
+--   'V-た + ことがある',
+--   'Đã từng làm gì đó (kinh nghiệm trong quá khứ).',
+--   'Dùng cho trải nghiệm đã có, không dùng cho việc vừa mới xong.',
+--   'Phủ định: たことがない.',
+--   '[{"ja":"日本に行ったことがあります。","vi":"Tôi đã từng đi Nhật.","register":"polite"},{"ja":"見たことない。","vi":"Chưa từng thấy.","register":"casual"}]'::text,
+--   0,
+--   now()
+-- );

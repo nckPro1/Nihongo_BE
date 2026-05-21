@@ -13,6 +13,8 @@ public class FlashcardResponse {
     private String direction;
     private String sourceQuery;
     private LocalDateTime createdAt;
+    /** 0–100: tiến độ nắm qua quiz (thẻ chưa làm = 0). */
+    private int masteryScore;
 
     public UUID getId() {
         return id;
@@ -76,5 +78,13 @@ public class FlashcardResponse {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getMasteryScore() {
+        return masteryScore;
+    }
+
+    public void setMasteryScore(int masteryScore) {
+        this.masteryScore = masteryScore;
     }
 }

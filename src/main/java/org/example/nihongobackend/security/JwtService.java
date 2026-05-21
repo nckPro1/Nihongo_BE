@@ -3,6 +3,7 @@ package org.example.nihongobackend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.example.nihongobackend.entity.UserRole;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +20,14 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
-    public String generateToken(UUID userId, String email, String role) {
+    public String generateToken(UUID userId, String email, UserRole role) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
                 .subject(email)
                 .claim("userId", userId.toString())
-                .claim("role", role)
+                .claim("role", role.name())
                 .issuedAt(now)
                 .expiration(expiration)
                 .signWith(getSigningKey())

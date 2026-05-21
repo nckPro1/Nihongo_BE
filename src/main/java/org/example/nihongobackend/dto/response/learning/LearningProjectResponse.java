@@ -10,6 +10,10 @@ public class LearningProjectResponse {
     private String description;
     private LocalDateTime createdAt;
     private long cardCount;
+    /** Trung bình điểm nắm (0–100) trên toàn bộ thẻ trong Zenigo; thẻ chưa quiz = 0. */
+    private int progressPercent;
+    /** Số thẻ có mastery ≥ 80. */
+    private long masteredCardCount;
 
     public UUID getId() {
         return id;
@@ -49,5 +53,21 @@ public class LearningProjectResponse {
 
     public void setCardCount(long cardCount) {
         this.cardCount = cardCount;
+    }
+
+    public int getProgressPercent() {
+        return progressPercent;
+    }
+
+    public void setProgressPercent(int progressPercent) {
+        this.progressPercent = progressPercent;
+    }
+
+    public long getMasteredCardCount() {
+        return masteredCardCount;
+    }
+
+    public void setMasteredCardCount(long masteredCardCount) {
+        this.masteredCardCount = masteredCardCount;
     }
 }

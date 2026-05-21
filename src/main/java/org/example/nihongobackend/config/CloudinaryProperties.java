@@ -11,8 +11,8 @@ public class CloudinaryProperties {
     private String cloudName = "";
     private String apiKey = "";
     private String apiSecret = "";
-    /** Thư mục gốc trên Cloudinary (vd. hikarigo). */
-    private String folder = "hikarigo";
+    /** Thư mục gốc trên Cloudinary (vd. zenigo). */
+    private String folder = "zenigo";
 
     public boolean isEnabled() {
         return enabled;

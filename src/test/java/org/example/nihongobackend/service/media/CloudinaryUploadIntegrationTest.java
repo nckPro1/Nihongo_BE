@@ -36,7 +36,7 @@ class CloudinaryUploadIntegrationTest {
         registry.add("cloudinary.cloud-name", () -> dotenv.get("CLOUDINARY_CLOUD_NAME", ""));
         registry.add("cloudinary.api-key", () -> dotenv.get("CLOUDINARY_API_KEY", ""));
         registry.add("cloudinary.api-secret", () -> dotenv.get("CLOUDINARY_API_SECRET", ""));
-        registry.add("cloudinary.folder", () -> dotenv.get("CLOUDINARY_FOLDER", "hikarigo"));
+        registry.add("cloudinary.folder", () -> dotenv.get("CLOUDINARY_FOLDER", "zenigo"));
     }
 
     @Autowired(required = false)

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class CreateFlashcardRequest {
 
-    @NotNull(message = "Thiếu dự án học tập (projectId)")
+    @NotNull(message = "Thiếu Zenigo (projectId)")
     private UUID projectId;
 
     @NotBlank(message = "Kanji / câu Nhật không được để trống")

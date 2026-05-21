@@ -1,0 +1,2098 @@
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-05-20T22:17:12.070+07:00  INFO 12404 --- [           main] o.e.n.NihongoBackendApplication          : Starting NihongoBackendApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 12404 (E:\NihongoApp\nihongo-backend\target\nihongo-backend-0.0.1-SNAPSHOT.jar started by Hp in E:\NihongoApp\nihongo-backend)
+2026-05-20T22:17:12.072+07:00  INFO 12404 --- [           main] o.e.n.NihongoBackendApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-05-20T22:17:13.051+07:00  INFO 12404 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-20T22:17:13.229+07:00  INFO 12404 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 169 ms. Found 13 JPA repository interfaces.
+2026-05-20T22:17:14.156+07:00  INFO 12404 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-05-20T22:17:14.169+07:00  INFO 12404 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-05-20T22:17:14.169+07:00  INFO 12404 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-05-20T22:17:14.223+07:00  INFO 12404 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-05-20T22:17:14.225+07:00  INFO 12404 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2070 ms
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2026-05-20T22:17:14.406+07:00  INFO 12404 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-20T22:17:14.497+07:00  INFO 12404 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-20T22:17:14.539+07:00  INFO 12404 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-20T22:17:14.829+07:00  INFO 12404 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-20T22:17:14.863+07:00  INFO 12404 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-05-20T22:17:15.103+07:00  INFO 12404 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@775c4054
+2026-05-20T22:17:15.104+07:00  INFO 12404 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-05-20T22:17:15.146+07:00  WARN 12404 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-05-20T22:17:16.418+07:00  INFO 12404 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower(meaning_en)]; ignoring index [idx_own_vocab_meaning_en_lower]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower(meaning_en)]; ignoring index [idx_own_vocab_meaning_en_trgm]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [to_tsvector('simple'::regconfig, meaning_vi)]; ignoring index [idx_own_vocab_meaning_vi_gin]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower(meaning_vi)]; ignoring index [idx_own_vocab_meaning_vi_lower]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower(meaning_vi)]; ignoring index [idx_own_vocab_meaning_vi_trgm]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower((reading)::text)]; ignoring index [idx_own_vocab_reading_lower]
+2026-05-20T22:17:16.484+07:00  INFO 12404 --- [           main] t.s.e.i.AbstractInformationExtractorImpl : HHH000475: Cannot locate column information using identifier [lower((word)::text)]; ignoring index [idx_own_vocab_word_lower]
+2026-05-20T22:17:16.599+07:00  INFO 12404 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-20T22:17:16.951+07:00  INFO 12404 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-05-20T22:17:18.754+07:00  WARN 12404 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-20T22:17:19.027+07:00  INFO 12404 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3952be1b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@260aeb5a, org.springframework.security.web.context.SecurityContextHolderFilter@3bd42f5b, org.springframework.security.web.header.HeaderWriterFilter@5813c42a, org.springframework.web.filter.CorsFilter@4f6e663b, org.springframework.security.web.authentication.logout.LogoutFilter@f9c0e80, org.example.nihongobackend.security.AdminJwtAuthenticationFilter@685e398, org.example.nihongobackend.security.JwtAuthenticationFilter@3681063, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@33ccb7e7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c5fcecb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2554d217, org.springframework.security.web.session.SessionManagementFilter@4d98763f, org.springframework.security.web.access.ExceptionTranslationFilter@afb7791, org.springframework.security.web.access.intercept.AuthorizationFilter@786ce57e]
+2026-05-20T22:17:19.375+07:00  INFO 12404 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-05-20T22:17:19.392+07:00  INFO 12404 --- [           main] o.e.n.NihongoBackendApplication          : Started NihongoBackendApplication in 7.769 seconds (process running for 8.298)
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    where
+        f1_0.project_id is null
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        prt1_0.id,
+        prt1_0.created_at,
+        prt1_0.expires_at,
+        prt1_0.token_hash,
+        prt1_0.used_at,
+        prt1_0.user_id 
+    from
+        password_reset_tokens prt1_0 
+    where
+        prt1_0.expires_at<?
+Hibernate: 
+    select
+        evt1_0.id,
+        evt1_0.created_at,
+        evt1_0.expires_at,
+        evt1_0.token_hash,
+        evt1_0.used_at,
+        evt1_0.user_id 
+    from
+        email_verification_tokens evt1_0 
+    where
+        evt1_0.expires_at<?
+2026-05-20T22:30:40.334+07:00  INFO 12404 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-20T22:30:40.335+07:00  INFO 12404 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-05-20T22:30:40.336+07:00  INFO 12404 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        cp1_0.user_id,
+        cp1_0.created_at,
+        cp1_0.is_pro,
+        cp1_0.jlpt_level,
+        cp1_0.pro_expires_at,
+        cp1_0.updated_at 
+    from
+        customer_profiles cp1_0 
+    where
+        cp1_0.user_id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        cv1_0.id,
+        cv1_0.created_at,
+        cv1_0.last_searched,
+        cv1_0.meaning_vi,
+        cv1_0.part_of_speech,
+        cv1_0.priority,
+        cv1_0.reading,
+        cv1_0.search_count,
+        cv1_0.source,
+        cv1_0.updated_at,
+        cv1_0.word 
+    from
+        community_vocab cv1_0 
+    where
+        cv1_0.word=? 
+        or cv1_0.reading=? 
+        or lower(cv1_0.meaning_vi)=lower(?) 
+        or lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when cv1_0.word=? 
+                then 0 
+            when cv1_0.reading=? 
+                then 1 
+            when lower(cv1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 3 
+            else 4 
+        end,
+        cv1_0.priority desc,
+        cv1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        avc1_0.id,
+        avc1_0.created_at,
+        avc1_0.first_queried,
+        avc1_0.is_verified,
+        avc1_0.last_queried,
+        avc1_0.meaning_vi,
+        avc1_0.model,
+        avc1_0.query_count,
+        avc1_0.reading,
+        avc1_0.report_count,
+        avc1_0.source,
+        avc1_0.updated_at,
+        avc1_0.verified_by,
+        avc1_0.word 
+    from
+        ai_vocab_cache avc1_0 
+    where
+        avc1_0.word=? 
+        or avc1_0.reading=? 
+        or lower(avc1_0.meaning_vi)=lower(?) 
+        or lower(avc1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when avc1_0.word=? 
+                then 0 
+            when avc1_0.reading=? 
+                then 1 
+            when lower(avc1_0.meaning_vi)=lower(?) 
+                then 2 
+            else 3 
+        end,
+        avc1_0.query_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:30:44.165+07:00  INFO 12404 --- [nio-8080-exec-8] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L3 HIT: con chó → con chó (40 ms, cached from deepseek-chat)
+Hibernate: 
+    update
+        ai_vocab_cache 
+    set
+        first_queried=?,
+        is_verified=?,
+        last_queried=?,
+        meaning_vi=?,
+        model=?,
+        query_count=?,
+        reading=?,
+        report_count=?,
+        source=?,
+        updated_at=?,
+        verified_by=?,
+        word=? 
+    where
+        id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:31:02.912+07:00  INFO 12404 --- [io-8080-exec-10] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1 HIT: phát biểu → thảo luận, phát biểu (11 ms)
+Hibernate: 
+    update
+        own_vocab 
+    set
+        is_verified=?,
+        last_searched=?,
+        level=?,
+        meaning_en=?,
+        meaning_vi=?,
+        part_of_speech=?,
+        reading=?,
+        search_count=?,
+        updated_at=?,
+        verified_by=?,
+        word=? 
+    where
+        id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        cv1_0.id,
+        cv1_0.created_at,
+        cv1_0.last_searched,
+        cv1_0.meaning_vi,
+        cv1_0.part_of_speech,
+        cv1_0.priority,
+        cv1_0.reading,
+        cv1_0.search_count,
+        cv1_0.source,
+        cv1_0.updated_at,
+        cv1_0.word 
+    from
+        community_vocab cv1_0 
+    where
+        cv1_0.word=? 
+        or cv1_0.reading=? 
+        or lower(cv1_0.meaning_vi)=lower(?) 
+        or lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when cv1_0.word=? 
+                then 0 
+            when cv1_0.reading=? 
+                then 1 
+            when lower(cv1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 3 
+            else 4 
+        end,
+        cv1_0.priority desc,
+        cv1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        avc1_0.id,
+        avc1_0.created_at,
+        avc1_0.first_queried,
+        avc1_0.is_verified,
+        avc1_0.last_queried,
+        avc1_0.meaning_vi,
+        avc1_0.model,
+        avc1_0.query_count,
+        avc1_0.reading,
+        avc1_0.report_count,
+        avc1_0.source,
+        avc1_0.updated_at,
+        avc1_0.verified_by,
+        avc1_0.word 
+    from
+        ai_vocab_cache avc1_0 
+    where
+        avc1_0.word=? 
+        or avc1_0.reading=? 
+        or lower(avc1_0.meaning_vi)=lower(?) 
+        or lower(avc1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when avc1_0.word=? 
+                then 0 
+            when avc1_0.reading=? 
+                then 1 
+            when lower(avc1_0.meaning_vi)=lower(?) 
+                then 2 
+            else 3 
+        end,
+        avc1_0.query_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:32:45.674+07:00  INFO 12404 --- [nio-8080-exec-4] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1/L2/L3 MISS → Calling L4 AI: toa tàu giường nằm
+2026-05-20T22:32:45.674+07:00  INFO 12404 --- [nio-8080-exec-4] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] L4 AI call: toa tàu giường nằm (direction: vi→ja, user: anonymous)
+2026-05-20T22:32:46.607+07:00  INFO 12404 --- [nio-8080-exec-4] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] Saved to L3 cache: 寝台車 → toa tàu giường nằm
+2026-05-20T22:32:46.608+07:00  INFO 12404 --- [nio-8080-exec-4] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L4 AI SUCCESS: toa tàu giường nằm → toa tàu giường nằm (927 ms)
+Hibernate: 
+    insert 
+    into
+        ai_vocab_cache
+        (created_at, first_queried, is_verified, last_queried, meaning_vi, model, query_count, reading, report_count, source, updated_at, verified_by, word, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:37:51.786+07:00  INFO 12404 --- [nio-8080-exec-7] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1 HIT: chất tẩy → chất tẩy rửa, chất tẩy rửa, chất tẩy rửa, chất tẩy rửa (4 ms)
+Hibernate: 
+    update
+        own_vocab 
+    set
+        is_verified=?,
+        last_searched=?,
+        level=?,
+        meaning_en=?,
+        meaning_vi=?,
+        part_of_speech=?,
+        reading=?,
+        search_count=?,
+        updated_at=?,
+        verified_by=?,
+        word=? 
+    where
+        id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        cv1_0.id,
+        cv1_0.created_at,
+        cv1_0.last_searched,
+        cv1_0.meaning_vi,
+        cv1_0.part_of_speech,
+        cv1_0.priority,
+        cv1_0.reading,
+        cv1_0.search_count,
+        cv1_0.source,
+        cv1_0.updated_at,
+        cv1_0.word 
+    from
+        community_vocab cv1_0 
+    where
+        cv1_0.word=? 
+        or cv1_0.reading=? 
+        or lower(cv1_0.meaning_vi)=lower(?) 
+        or lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when cv1_0.word=? 
+                then 0 
+            when cv1_0.reading=? 
+                then 1 
+            when lower(cv1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 3 
+            else 4 
+        end,
+        cv1_0.priority desc,
+        cv1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        avc1_0.id,
+        avc1_0.created_at,
+        avc1_0.first_queried,
+        avc1_0.is_verified,
+        avc1_0.last_queried,
+        avc1_0.meaning_vi,
+        avc1_0.model,
+        avc1_0.query_count,
+        avc1_0.reading,
+        avc1_0.report_count,
+        avc1_0.source,
+        avc1_0.updated_at,
+        avc1_0.verified_by,
+        avc1_0.word 
+    from
+        ai_vocab_cache avc1_0 
+    where
+        avc1_0.word=? 
+        or avc1_0.reading=? 
+        or lower(avc1_0.meaning_vi)=lower(?) 
+        or lower(avc1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when avc1_0.word=? 
+                then 0 
+            when avc1_0.reading=? 
+                then 1 
+            when lower(avc1_0.meaning_vi)=lower(?) 
+                then 2 
+            else 3 
+        end,
+        avc1_0.query_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:38:21.672+07:00  INFO 12404 --- [nio-8080-exec-9] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1/L2/L3 MISS → Calling L4 AI: tỉnh dậy
+2026-05-20T22:38:21.672+07:00  INFO 12404 --- [nio-8080-exec-9] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] L4 AI call: tỉnh dậy (direction: vi→ja, user: anonymous)
+2026-05-20T22:38:22.405+07:00  INFO 12404 --- [nio-8080-exec-9] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] Saved to L3 cache: 目覚める → tỉnh dậy
+2026-05-20T22:38:22.406+07:00  INFO 12404 --- [nio-8080-exec-9] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L4 AI SUCCESS: tỉnh dậy → tỉnh dậy (733 ms)
+Hibernate: 
+    insert 
+    into
+        ai_vocab_cache
+        (created_at, first_queried, is_verified, last_queried, meaning_vi, model, query_count, reading, report_count, source, updated_at, verified_by, word, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:38:45.591+07:00  INFO 12404 --- [nio-8080-exec-1] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1 HIT: thức dậy → thức dậy (3 ms)
+Hibernate: 
+    update
+        own_vocab 
+    set
+        is_verified=?,
+        last_searched=?,
+        level=?,
+        meaning_en=?,
+        meaning_vi=?,
+        part_of_speech=?,
+        reading=?,
+        search_count=?,
+        updated_at=?,
+        verified_by=?,
+        word=? 
+    where
+        id=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        cv1_0.id,
+        cv1_0.created_at,
+        cv1_0.last_searched,
+        cv1_0.meaning_vi,
+        cv1_0.part_of_speech,
+        cv1_0.priority,
+        cv1_0.reading,
+        cv1_0.search_count,
+        cv1_0.source,
+        cv1_0.updated_at,
+        cv1_0.word 
+    from
+        community_vocab cv1_0 
+    where
+        cv1_0.word=? 
+        or cv1_0.reading=? 
+        or lower(cv1_0.meaning_vi)=lower(?) 
+        or lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when cv1_0.word=? 
+                then 0 
+            when cv1_0.reading=? 
+                then 1 
+            when lower(cv1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 3 
+            else 4 
+        end,
+        cv1_0.priority desc,
+        cv1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        avc1_0.id,
+        avc1_0.created_at,
+        avc1_0.first_queried,
+        avc1_0.is_verified,
+        avc1_0.last_queried,
+        avc1_0.meaning_vi,
+        avc1_0.model,
+        avc1_0.query_count,
+        avc1_0.reading,
+        avc1_0.report_count,
+        avc1_0.source,
+        avc1_0.updated_at,
+        avc1_0.verified_by,
+        avc1_0.word 
+    from
+        ai_vocab_cache avc1_0 
+    where
+        avc1_0.word=? 
+        or avc1_0.reading=? 
+        or lower(avc1_0.meaning_vi)=lower(?) 
+        or lower(avc1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when avc1_0.word=? 
+                then 0 
+            when avc1_0.reading=? 
+                then 1 
+            when lower(avc1_0.meaning_vi)=lower(?) 
+                then 2 
+            else 3 
+        end,
+        avc1_0.query_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:39:12.010+07:00  INFO 12404 --- [nio-8080-exec-3] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1/L2/L3 MISS → Calling L4 AI: okimasu
+2026-05-20T22:39:12.010+07:00  INFO 12404 --- [nio-8080-exec-3] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] L4 AI call: okimasu (direction: ja→vi, user: anonymous)
+2026-05-20T22:39:12.514+07:00  INFO 12404 --- [nio-8080-exec-3] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] Saved to L3 cache: okimasu → đặt để
+2026-05-20T22:39:12.514+07:00  INFO 12404 --- [nio-8080-exec-3] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L4 AI SUCCESS: okimasu → đặt để (503 ms)
+Hibernate: 
+    insert 
+    into
+        ai_vocab_cache
+        (created_at, first_queried, is_verified, last_queried, meaning_vi, model, query_count, reading, report_count, source, updated_at, verified_by, word, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        ov1_0.id,
+        ov1_0.created_at,
+        ov1_0.is_verified,
+        ov1_0.last_searched,
+        ov1_0.level,
+        ov1_0.meaning_en,
+        ov1_0.meaning_vi,
+        ov1_0.part_of_speech,
+        ov1_0.reading,
+        ov1_0.search_count,
+        ov1_0.updated_at,
+        ov1_0.verified_by,
+        ov1_0.word 
+    from
+        own_vocab ov1_0 
+    where
+        ov1_0.word=? 
+        or ov1_0.reading=? 
+        or lower(ov1_0.meaning_vi)=lower(?) 
+        or lower(ov1_0.meaning_en)=lower(?) 
+        or lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+        or lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when ov1_0.word=? 
+                then 0 
+            when ov1_0.reading=? 
+                then 1 
+            when lower(ov1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(ov1_0.meaning_en)=lower(?) 
+                then 3 
+            when lower(ov1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 4 
+            when lower(ov1_0.meaning_en) like lower(('%'||?||'%')) escape '' 
+                then 5 
+            else 6 
+        end,
+        ov1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        cv1_0.id,
+        cv1_0.created_at,
+        cv1_0.last_searched,
+        cv1_0.meaning_vi,
+        cv1_0.part_of_speech,
+        cv1_0.priority,
+        cv1_0.reading,
+        cv1_0.search_count,
+        cv1_0.source,
+        cv1_0.updated_at,
+        cv1_0.word 
+    from
+        community_vocab cv1_0 
+    where
+        cv1_0.word=? 
+        or cv1_0.reading=? 
+        or lower(cv1_0.meaning_vi)=lower(?) 
+        or lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when cv1_0.word=? 
+                then 0 
+            when cv1_0.reading=? 
+                then 1 
+            when lower(cv1_0.meaning_vi)=lower(?) 
+                then 2 
+            when lower(cv1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+                then 3 
+            else 4 
+        end,
+        cv1_0.priority desc,
+        cv1_0.search_count desc 
+    fetch
+        first 1 rows only
+Hibernate: 
+    select
+        avc1_0.id,
+        avc1_0.created_at,
+        avc1_0.first_queried,
+        avc1_0.is_verified,
+        avc1_0.last_queried,
+        avc1_0.meaning_vi,
+        avc1_0.model,
+        avc1_0.query_count,
+        avc1_0.reading,
+        avc1_0.report_count,
+        avc1_0.source,
+        avc1_0.updated_at,
+        avc1_0.verified_by,
+        avc1_0.word 
+    from
+        ai_vocab_cache avc1_0 
+    where
+        avc1_0.word=? 
+        or avc1_0.reading=? 
+        or lower(avc1_0.meaning_vi)=lower(?) 
+        or lower(avc1_0.meaning_vi) like lower(('%'||?||'%')) escape '' 
+    order by
+        case 
+            when avc1_0.word=? 
+                then 0 
+            when avc1_0.reading=? 
+                then 1 
+            when lower(avc1_0.meaning_vi)=lower(?) 
+                then 2 
+            else 3 
+        end,
+        avc1_0.query_count desc 
+    fetch
+        first 1 rows only
+2026-05-20T22:39:33.124+07:00  INFO 12404 --- [nio-8080-exec-5] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L1/L2/L3 MISS → Calling L4 AI: 起きます
+2026-05-20T22:39:33.125+07:00  INFO 12404 --- [nio-8080-exec-5] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] L4 AI call: 起きます (direction: ja→vi, user: anonymous)
+2026-05-20T22:39:33.967+07:00  INFO 12404 --- [nio-8080-exec-5] o.e.n.s.v.impl.VocabularyAiServiceImpl   : [Vocab] Saved to L3 cache: 起きます → thức dậy
+2026-05-20T22:39:33.967+07:00  INFO 12404 --- [nio-8080-exec-5] o.e.n.s.v.i.VocabularyLookupServiceImpl  : [Vocab] L4 AI SUCCESS: 起きます → thức dậy (842 ms)
+Hibernate: 
+    insert 
+    into
+        ai_vocab_cache
+        (created_at, first_queried, is_verified, last_queried, meaning_vi, model, query_count, reading, report_count, source, updated_at, verified_by, word, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    where
+        lp1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    where
+        lp1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.avatar,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.email_verified,
+        u1_0.google_id,
+        u1_0.is_active,
+        u1_0.name,
+        u1_0.password_hash,
+        u1_0.role,
+        u1_0.updated_at 
+    from
+        users u1_0 
+    where
+        u1_0.email=?
+Hibernate: 
+    select
+        lp1_0.id,
+        lp1_0.created_at,
+        lp1_0.description,
+        lp1_0.name,
+        lp1_0.user_id 
+    from
+        learning_projects lp1_0 
+    join
+        users u1_0 
+            on u1_0.id=lp1_0.user_id 
+    where
+        u1_0.id=? 
+    order by
+        lp1_0.created_at desc
+Hibernate: 
+    select
+        count(f1_0.id) 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=?
+Hibernate: 
+    select
+        f1_0.id,
+        f1_0.created_at,
+        f1_0.direction,
+        f1_0.kanji,
+        f1_0.meaning,
+        f1_0.project_id,
+        f1_0.reading,
+        f1_0.source_query,
+        f1_0.user_id 
+    from
+        flashcards f1_0 
+    left join
+        learning_projects p1_0 
+            on p1_0.id=f1_0.project_id 
+    where
+        p1_0.id=? 
+    order by
+        f1_0.created_at desc
+Hibernate: 
+    select
+        fqp1_0.id,
+        fqp1_0.correct_count,
+        fqp1_0.flashcard_id,
+        fqp1_0.mastery_score,
+        fqp1_0.updated_at,
+        fqp1_0.user_id,
+        fqp1_0.wrong_count 
+    from
+        flashcard_quiz_progress fqp1_0 
+    join
+        users u1_0 
+            on u1_0.id=fqp1_0.user_id 
+    join
+        flashcards f1_0 
+            on f1_0.id=fqp1_0.flashcard_id 
+    where
+        u1_0.id=? 
+        and f1_0.id in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        prt1_0.id,
+        prt1_0.created_at,
+        prt1_0.expires_at,
+        prt1_0.token_hash,
+        prt1_0.used_at,
+        prt1_0.user_id 
+    from
+        password_reset_tokens prt1_0 
+    where
+        prt1_0.expires_at<?
+Hibernate: 
+    select
+        evt1_0.id,
+        evt1_0.created_at,
+        evt1_0.expires_at,
+        evt1_0.token_hash,
+        evt1_0.used_at,
+        evt1_0.user_id 
+    from
+        email_verification_tokens evt1_0 
+    where
+        evt1_0.expires_at<?
