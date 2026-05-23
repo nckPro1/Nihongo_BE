@@ -93,10 +93,18 @@ public class GlobalExceptionHandler {
 
     /**
      * Không có @RequestMapping khớp (hoặc process BE cũ chưa load controller) — trước đây bị map thành 500.
+     * Skip actuator endpoints to let Spring Boot Actuator handle them.
      */
     @ExceptionHandler(NoResourceFoundException.class)
     public ResponseEntity<ApiResponse<Object>> handleNoResource(NoResourceFoundException ex) {
-        log.warn("No API or static resource for path: {}", ex.getResourcePath());
+        String path = ex.getResourcePath();
+
+        // Skip actuator endpoints - let Spring Boot Actuator handle them
+        if (path != null && path.startsWith("actuator/")) {
+            throw ex; // Re-throw to let actuator infrastructure handle it
+        }
+
+        log.warn("No API or static resource for path: {}", path);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ApiResponse.error(
                         "Không có route API này (404). Hãy restart backend sau khi pull/build mới. "

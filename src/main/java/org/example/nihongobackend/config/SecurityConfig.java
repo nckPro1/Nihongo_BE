@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/login",
@@ -72,6 +73,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/blog/tags").permitAll() // Public tags
                         .requestMatchers("/api/blog/admin/**").hasRole("ADMIN") // Admin blog management
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/health", "/actuator/info", "/health").permitAll() // Health check for monitoring
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
